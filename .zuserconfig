@@ -1,0 +1,11 @@
+#! /bin/zsh 
+# Configuration that is user-specific.
+
+# User info
+export PROFILE=
+
+# Github account setup
+export GIT_PROFILE=
+export GIT_EMAIL=
+export GIT_KEYNAME=
+export GIT_SSH=~/.ssh/${GIT_KEYNAME}
