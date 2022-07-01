@@ -91,5 +91,3 @@ function exitcode_color_vcs() {
 export PROMPT_COMMAND=exitcode_color_vcs
 # zsh uses precmd to run bash functions before shell prompt is created.
 precmd() {eval "$PROMPT_COMMAND"}
-
-eval "$(pyenv init -)"

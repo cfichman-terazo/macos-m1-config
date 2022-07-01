@@ -70,7 +70,8 @@ function install_frameworks() {
   install_aws
 }
 
-# Install databases and commonly used applications
+# Install databases and commonly used applications 
+# - doesn't run by default because containers make more sense for these things
 function install_databases() {
   brew install postgresql
   brew install --cask pgadmin4
