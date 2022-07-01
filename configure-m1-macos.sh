@@ -5,6 +5,7 @@ function first_time_setup () {
   sudo bash -c "xcode-select --install; xcodebuild -license accept"
 }
 
+# Run MacOS software update
 function software_update () {
   sudo bash -c "softwareupdate -i -a"
 }
@@ -34,6 +35,7 @@ function install_nvm() {
   nvm use default
 }
 
+# Install aws-cli and tools
 function install_aws() {
   brew install aws-shell
   brew install awscli
@@ -41,8 +43,11 @@ function install_aws() {
 }
 
 ## Install and configure python
+# https://github.com/pyenv/pyenv
 function install_python() {
-  brew install python
+  brew install pyenv
+  pyenv install 3.10.5
+  pyenv global 3.10.5
   pip3 install bitstring uritools nose tornado boto3
 }
 
@@ -50,6 +55,7 @@ function install_c_deps() {
   brew install gcc
 }
 
+# Install languages and their dependencies
 function install_languages() {
   install_python
   install_c_deps
@@ -64,6 +70,7 @@ function install_frameworks() {
   install_aws
 }
 
+# Install databases and commonly used applications
 function install_databases() {
   brew install postgresql
   brew install --cask pgadmin4

@@ -21,11 +21,11 @@ source ~/.zshrc
 # Functions for LS
 # Show files in reverse time ordered list using LScolos
 function lsl() {
-  ls -GFHltr
+  ls -GFHltr $2
 }
 # Show all files in reverse time ordered list using LScolors
 function lsa() {
-  ls -GFHaltr
+  ls -GFHaltr $2
 }
 # Show only hidden files in reverse time ordered list using LScolors
 function lsh() {
@@ -67,3 +67,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export NVM_DIR="${HOME}/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Setup pyenv path
+export PYENV_ROOT="${HOME}/.pyenv"
+command -v pyenv >/dev/null || export PATH="${PYENV_ROOT}/bin:${PATH}"
+eval "$(pyenv init -)"
