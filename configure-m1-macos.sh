@@ -1,4 +1,8 @@
 #! /bin/zsh
+# This file configures an Apple m1 machine for common software development tasks.
+# Author: Chris Fichman
+# Email: chris.fichman@terazo.com
+
 function first_time_setup () {
   setup_zprofile
   softwareupdate --install-rosetta
@@ -90,8 +94,12 @@ function install_frameworks() {
   brew install docker-squash
   brew install podman
   brew install kubernetes-cli minikube kubectx
-  install_aws
   install_twilio
+  if [ run_cloud_install == 'y' ]; then
+    install_aws
+    install_gcloud
+    install_azure
+  fi
 }
 
 # Install databases and commonly used applications 
@@ -154,6 +162,8 @@ function run_prompts(){
   read run_software_update
   echo "Full install? (y/n):"
   read run_full_install
+  echo "Install cloud sdks? (y/n):"
+  read run_cloud_install
   echo "Update brew and packages? (y/n):"
   read run_update_brew
 }

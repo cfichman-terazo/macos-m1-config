@@ -1,5 +1,7 @@
 #! /bin/zsh 
 # Configuration that is user-specific.
+# Author: Chris Fichman
+# Email: chris.fichman@terazo.com
 
 # User info
 export PROFILE=

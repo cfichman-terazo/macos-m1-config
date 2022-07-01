@@ -1,5 +1,7 @@
 #! /bin/zsh
 # Adds some nice shortcuts and functions to the zsh shell.
+# Author: Chris Fichman
+# Email: chris.fichman@terazo.com
 
 source ~/.zuserconfig
 

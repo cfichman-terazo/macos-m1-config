@@ -1,5 +1,7 @@
 #! /bin/zsh
 # Adds colors and nice display features to shell 
+# Author: Chris Fichman
+# Email: chris.fichman@terazo.com
 
 export NOGIT=''  ### non-empty means dont use it
 
