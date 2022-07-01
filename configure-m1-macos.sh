@@ -41,6 +41,11 @@ function install_aws() {
   brew install amazon-ecs-cli
 }
 
+# Installs azure-cli
+function install_azure() {
+  brew install azure-cli
+}
+
 # Installs gcloud SDK
 # NOTE: Download is for M1 chipset, NOT intel chipset!
 function install_gcloud() {
