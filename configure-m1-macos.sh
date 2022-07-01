@@ -79,7 +79,7 @@ function install_frameworks() {
   brew install --cask docker
   brew install docker-squash
   brew install podman
-  brew install kubernetes-cli minikube
+  brew install kubernetes-cli minikube kubectx
   install_aws
 }
 
