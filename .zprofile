@@ -58,7 +58,8 @@ function brewup() {
 # nvm use ${NODE_VERSION}
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
-# Library Paths
+# Library Paths and autocomplete. Enable as needed. 
+# WARNING:Enabling too many autocomplete rules below this point may negatively impact shell performance!
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # Add Homebrew to path
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -71,7 +72,14 @@ export NVM_DIR="${HOME}/.nvm"
 # Setup pyenv path
 export PYENV_ROOT="${HOME}/.pyenv"
 command -v pyenv >/dev/null || export PATH="${PYENV_ROOT}/bin:${PATH}"
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 # Setup twilio autocomplete
-printf "eval $(twilio autocomplete:script zsh)" >> ~/.zshrc; source ~/.zshrc
+#eval $(twilio autocomplete:script zsh)
+
+# Setup Gcloud path and autocomplete
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cfichman/third-party/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/cfichman/third-party/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+#if [ -f '/Users/cfichman/third-party/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/cfichman/third-party/google-cloud-sdk/completion.zsh.inc'; fi
