@@ -46,8 +46,8 @@ function install_aws() {
 # https://github.com/pyenv/pyenv
 function install_python() {
   brew install pyenv
-  pyenv install 3.10.5
-  pyenv global 3.10.5
+  pyenv install ${USER_PYTHON_VERSION}
+  pyenv global ${USER_PYTHON_VERSION}
   pip3 install bitstring uritools nose tornado boto3
 }
 
