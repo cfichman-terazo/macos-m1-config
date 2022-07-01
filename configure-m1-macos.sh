@@ -41,6 +41,8 @@ function install_aws() {
   brew install amazon-ecs-cli
 }
 
+# Installs gcloud SDK
+# NOTE: Download is for M1 chipset, NOT intel chipset!
 function install_gcloud() {
   local orig_dir=$(pwd)
   mkdir -p ${HOME}/third-party && cd ${HOME}/third-party
@@ -84,6 +86,7 @@ function install_frameworks() {
   brew install podman
   brew install kubernetes-cli minikube kubectx
   install_aws
+  install_twilio
 }
 
 # Install databases and commonly used applications 
