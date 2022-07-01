@@ -73,7 +73,7 @@ function install_databases() {
 function install_homebrew_packages () {
   install_languages
   install_frameworks
-  install_databases
+  # install_databases
 }
 
 ## Create ssh-key and add to keychain
