@@ -13,12 +13,12 @@ function software_update () {
 ## Copies zprofile from this folder and installs in home directory
 function setup_zprofile() {
   ## Install and source .zprofile
-  cp .zprofile ~
-  cp .zshrc ~
-  cp .zuserconfig ~
-  vim ~/.zuserconfig
+  cp .zprofile ${HOME}
+  cp .zshrc ${HOME}
+  cp .zuserconfig ${HOME}
+  vim ${HOME}/.zuserconfig
 
-  source ~/.zprofile
+  source ${HOME}/.zprofile
 }
 
 ## Install homebrew
@@ -37,14 +37,17 @@ function install_nvm() {
 
 # Install aws-cli and tools
 function install_aws() {
-  brew install aws-shell
   brew install awscli
   brew install amazon-ecs-cli
 }
 
 function install_gcloud() {
+  local orig_dir=$(pwd)
+  mkdir -p ${HOME}/third-party && cd ${HOME}/third-party
   gcloud_download=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-392.0.0-darwin-arm.tar.gz
-  wget -q0- $gcloud_download | tar xvz
+  wget -qO- $gcloud_download | tar xvz -C ${HOME}/third-party
+  ./google-cloud-sdk/install.sh -q --path-update false --install-python false
+  cd $orig_dir
 }
 
 ## Install and configure python
@@ -109,7 +112,7 @@ function install_homebrew_packages () {
 function git_gen_ssh_key() {
   if [ ! -f ${GIT_SSH} ]; then
     ssh-keygen -t ed25519 -f "${GIT_SSH}" -C "${USER_EMAIL}"
-    cat << EOF > ~/.ssh/config
+    cat << EOF > ${HOME}/.ssh/config
 Host *
   AddKeysToAgent yes
   UseKeychain yes
