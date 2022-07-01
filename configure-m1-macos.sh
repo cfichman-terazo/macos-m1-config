@@ -42,6 +42,11 @@ function install_aws() {
   brew install amazon-ecs-cli
 }
 
+function install_gcloud() {
+  gcloud_download=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-392.0.0-darwin-arm.tar.gz
+  wget -q0- $gcloud_download | tar xvz
+}
+
 ## Install and configure python
 # https://github.com/pyenv/pyenv
 function install_python() {
@@ -52,7 +57,7 @@ function install_python() {
 }
 
 function install_c_deps() {
-  brew install gcc
+  brew install gcc make
 }
 
 # Install languages and their dependencies
@@ -65,8 +70,9 @@ function install_languages() {
 function install_frameworks() {
   install_nvm
   brew install --cask docker
+  brew install docker-squash
   brew install podman
-  brew install kubernetes-cli
+  brew install kubernetes-cli minikube
   install_aws
 }
 
@@ -77,8 +83,15 @@ function install_databases() {
   brew install --cask pgadmin4
 }
 
+function install_cli_utils() {
+  brew install wget curl rsync lz4
+  brew install tmux watch htop netcat nmap
+  brew install jq tree gawk gnu-sed
+}
+
 # Install homebrew managed packages
 function install_homebrew_packages () {
+  install_cli_utils
   install_languages
   install_frameworks
   # install_databases
@@ -137,6 +150,7 @@ function main(){
   fi
   if [ $run_full_install = "y" ]; then
     install_homebrew_packages
+    install_gcloud
   fi
   if [ $run_update_brew = "y" ]; then
     brewup
