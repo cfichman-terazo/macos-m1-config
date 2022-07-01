@@ -60,6 +60,13 @@ function install_c_deps() {
   brew install gcc make
 }
 
+function install_twilio() {
+  brew tap twilio/brew && brew install twilio
+  twilio autocomplete zsh
+  twilio login ${TWILIO_TERAZO_SID} --profile=${TWILIO_PROFILE} --auth-token=${TWILIO_TERAZO_KEY}
+  twilio profiles:use ${TWILIO_PROFILE}
+}
+
 # Install languages and their dependencies
 function install_languages() {
   install_python
