@@ -93,3 +93,45 @@ function exitcode_color_vcs() {
 export PROMPT_COMMAND=exitcode_color_vcs
 # zsh uses precmd to run bash functions before shell prompt is created.
 precmd() {eval "$PROMPT_COMMAND"}
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+# Docker Settings
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+# export DOCKER_BUILDKIT=1
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+# NVM Settings
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+# export NODE_VERSION=node
+# nvm use ${NODE_VERSION}
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+# Library Paths and autocomplete. Enable as needed. 
+# WARNING:Enabling too many autocomplete rules below this point may negatively impact shell performance!
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+# Add Homebrew to path
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Setup NVM Path
+export NVM_DIR="${HOME}/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Setup jenv path
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# Setup pyenv path
+export PYENV_ROOT="${HOME}/.pyenv"
+command -v pyenv >/dev/null || export PATH="${PYENV_ROOT}/bin:${PATH}"
+eval "$(pyenv init -)"
+
+# Setup twilio autocomplete
+#eval $(twilio autocomplete:script zsh)
+
+# Setup Gcloud path and autocomplete
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cfichman/third-party/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/cfichman/third-party/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+#if [ -f '/Users/cfichman/third-party/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/cfichman/third-party/google-cloud-sdk/completion.zsh.inc'; fi

@@ -39,6 +39,23 @@ function install_nvm() {
   nvm use default
 }
 
+## Install and configure jenv : https://github.com/jenv/jenv
+function install_jenv() {
+  brew install jenv
+  jenv enable-plugin export
+  install_java${JAVA_MAJOR_VERSION}
+  jenv add "$(${PATH_TO_JVM_HOME})"
+  jenv local ${JAVA_MAJOR_VERSION}.0
+  exec $SHELL -l
+}
+
+function install_java11() {
+  # jenv only manages environment but does not install the JDK
+  brew install --cask java11
+  sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
+  export PATH_TO_JVM_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home
+}
+
 # Install aws-cli and tools
 function install_aws() {
   brew install awscli
@@ -63,7 +80,7 @@ function install_gcloud() {
 
 ## Install and configure python
 # https://github.com/pyenv/pyenv
-function install_python() {
+function install_pyenv() {
   brew install pyenv
   pyenv install ${USER_PYTHON_VERSION}
   pyenv global ${USER_PYTHON_VERSION}
@@ -83,9 +100,10 @@ function install_twilio() {
 
 # Install languages and their dependencies
 function install_languages() {
-  install_python
+  install_pyenv
   install_c_deps
   brew install go
+  install_jenv
 }
 
 function install_frameworks() {
