@@ -1,26 +1,10 @@
-#! /bin/zsh
-# This file contains configurations and setup functions
-#  that are relevant development on the PrimeStreet Project
-# Author: Chris fichman
-# Email: chris.fichman@terazo.com
-export PROJECT_NAME=primestreet
-
-# Java Preverence
-export PROJECT_JAVA_MAJOR_VERSION=11
-
-# Twilio Profile Information for Terazo partner account
-# You must have created a twilio profile for this to work!
-export TWILIO_PROFILE=${PROJECT_NAME}-dev
-export TWILIO_PRIMESTREET_SID=
-export TWILIO_PRIMESTREET_KEY=
-
+source ~/.zprimestreet-config
 source ~/.zutils-tools
 
 function primestreet_install_java() {
   install_jenv  
   install_java${PROJECT_JAVA_MAJOR_VERSION}
   jenv local ${PROJECT_JAVA_MAJOR_VERSION}.0
-  exec $SHELL -l
 }
 
 function primestreet_install_languages() {
@@ -43,9 +27,16 @@ function primestreet_install_databases() {
   brew install postgresql
 }
 
+# Install primestreet development dependencies
 function primestreet_install(){
   primestreet_install_languages
   primestreet_install_tools
   primestreet_install_frameworks
   primestreet_install_databases
+}
+
+## Configure various libraries for primestreet development
+function primestreet_configure() {
+  switch_twilio_profile
+  exec $SHELL -l
 }

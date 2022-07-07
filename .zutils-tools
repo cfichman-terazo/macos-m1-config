@@ -15,15 +15,14 @@ function install_nvm() {
 function install_jenv() {
   brew install jenv
   jenv enable-plugin export
-  install_java${JAVA_MAJOR_VERSION}
 }
 
 function install_java11() {
   # jenv only manages environment but does not install the JDK
-  brew install --cask java11
+  brew install java11
   sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
   export PATH_TO_JDK_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home
-  jenv add "$(${PATH_TO_JDK_HOME})"
+  jenv add ${PATH_TO_JDK_HOME}
 }
 
 # Install aws-cli and tools
@@ -67,9 +66,9 @@ function install_twilio() {
 }
 
 function setup_twilio_profile() {
-  export TWILIO_PROFILE=${1}
-  export TWILIO_SID=${2}
-  export TWILIO_KEY=${3}
+  export TWILIO_PROFILE=$1
+  export TWILIO_SID=$2
+  export TWILIO_KEY=$3
   twilio login ${TWILIO_SID} --profile=${TWILIO_PROFILE} --auth-token=${TWILIO_KEY}
   twilio profiles:use ${TWILIO_PROFILE}
 }

@@ -3,6 +3,11 @@
 # Author: Chris Fichman
 # Email: chris.fichman@terazo.com
 
+function primestreet_first_time_setup () {
+  vim ${HOME}/.zprimestreet-config
+  source ${HOME}/.zprofile
+}
+
 run_primestreet_first_time_setup="n"
 run_primestreet_install="n"
 
