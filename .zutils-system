@@ -1,0 +1,72 @@
+#! /bin/zsh
+# Util functions for system configuration. Should only be used via source calls from other scripts.
+# Author: Chris Fichman
+# Contact: chris.fichman@terazo.com
+
+function first_time_setup () {
+  setup_zprofile
+  softwareupdate --install-rosetta
+  sudo bash -c "xcode-select --install; xcodebuild -license accept"
+}
+
+# Run MacOS software update
+function software_update () {
+  sudo bash -c "softwareupdate -i -a"
+}
+
+## Copies zprofile from this folder and installs in home directory
+function setup_zprofile() {
+  ## Install and source .zprofile
+  cp .zprofile ${HOME}
+  cp .zshrc ${HOME}
+  cp .zuserconfig ${HOME}
+  cp .zutils ${HOME}
+  vim ${HOME}/.zuserconfig
+
+  source ${HOME}/.zprofile
+}
+
+## Install homebrew
+function install_homebrew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo ">>>>>>>>>>READ OUTPUT CAREFULLY AND UPDATE ZPROFILE IF NEEDED<<<<<<<<<<"
+}
+
+# Installs an assortment of important cli tools using homebrew
+function install_cli_tools() {
+  brew install wget curl rsync lz4
+  brew install tmux watch htop netcat nmap
+  brew install jq tree gawk gnu-sed
+}
+
+function install_system_tools() {
+  install_homebrew
+  install_cli_tools
+}
+
+## Create ssh-key and add to keychain
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+function git_ssh_keygen() {
+  if [ ! -f ${GIT_SSH} ]; then
+    ssh-keygen -t ed25519 -f "${GIT_SSH}" -C "${USER_EMAIL}"
+    cat << EOF > ${HOME}/.ssh/config
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ${GIT_SSH}
+EOF
+  else
+    echo "ssh file already exists, skipping generation."
+  fi
+  ## Turn on ssh agent and add key to keychain
+  eval "$(ssh-agent -s)"
+  ssh-add --apple-use-keychain ${GIT_SSH}
+}
+
+function brewup() {
+  brew update;
+  brew upgrade;
+  brew upgrade --cask;
+  brew cleanup;
+  brew doctor;
+}

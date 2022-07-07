@@ -1,0 +1,104 @@
+#! /bin/zsh
+# Util functions for various commonly needed libraries. Should only be used via source calls from other scripts.
+# Author: Chris Fichman
+# Contact: chris.fichman@terazo.com
+
+## Install and configure nvm
+function install_nvm() {
+  brew install nvm
+  nvm install node
+  nvm alias default node
+  nvm use default
+}
+
+## Install and configure jenv : https://github.com/jenv/jenv
+function install_jenv() {
+  brew install jenv
+  jenv enable-plugin export
+  install_java${JAVA_MAJOR_VERSION}
+  jenv add "$(${PATH_TO_JVM_HOME})"
+  jenv local ${JAVA_MAJOR_VERSION}.0
+  exec $SHELL -l
+}
+
+function install_java11() {
+  # jenv only manages environment but does not install the JDK
+  brew install --cask java11
+  sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
+  export PATH_TO_JVM_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home
+}
+
+# Install aws-cli and tools
+function install_aws() {
+  brew install awscli
+  brew install amazon-ecs-cli
+}
+
+# Installs azure-cli
+function install_azure() {
+  brew install azure-cli
+}
+
+# Installs gcloud SDK
+# NOTE: Download is for M1 chipset, NOT intel chipset!
+function install_gcloud() {
+  local orig_dir=$(pwd)
+  mkdir -p ${HOME}/third-party && cd ${HOME}/third-party
+  gcloud_download=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-392.0.0-darwin-arm.tar.gz
+  wget -qO- $gcloud_download | tar xvz -C ${HOME}/third-party
+  ./google-cloud-sdk/install.sh -q --path-update false --install-python false
+  cd $orig_dir
+}
+
+## Install and configure python
+# https://github.com/pyenv/pyenv
+function install_pyenv() {
+  brew install pyenv
+  pyenv install ${USER_PYTHON_VERSION}
+  pyenv global ${USER_PYTHON_VERSION}
+  pip3 install bitstring uritools nose tornado boto3
+}
+
+function install_c_deps() {
+  brew install gcc make
+}
+
+function install_twilio() {
+  brew tap twilio/brew && brew install twilio
+  twilio autocomplete zsh
+  twilio login ${TWILIO_TERAZO_SID} --profile=${TWILIO_PROFILE} --auth-token=${TWILIO_TERAZO_KEY}
+  twilio profiles:use ${TWILIO_PROFILE}
+}
+
+# Install languages and their dependencies
+function install_languages() {
+  install_pyenv
+  install_c_deps
+  brew install go
+  install_jenv
+}
+
+function install_frameworks() {
+  install_nvm
+  brew install --cask docker
+  brew install docker-squash
+  brew install podman
+  brew install kubernetes-cli minikube kubectx
+  install_twilio
+  if [ run_cloud_install == 'y' ]; then
+    install_aws
+    install_gcloud
+    install_azure
+  fi
+}
+
+# Install databases and commonly used applications 
+# - doesn't run by default because containers make more sense for these things
+function install_databases() {
+  brew install postgresql
+  brew install --cask pgadmin4
+}
+
+function install_ides() {
+  brew install --cask intellij-idea visual-studio-code sublime-text
+}

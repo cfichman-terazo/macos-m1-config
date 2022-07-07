@@ -15,11 +15,15 @@ export GIT_SSH=~/.ssh/${GIT_KEYNAME}
 # Python Preference
 export USER_PYTHON_VERSION=3.10.5
 
-# Java Preverence
-export JAVA_MAJOR_VERSION=11
-
 # Twilio Profile Information for Terazo partner account
 # You must have created a twilio profile for this to work!
 export TWILIO_PROFILE=
 export TWILIO_TERAZO_SID=
 export TWILIO_TERAZO_KEY=
+
+# Current Terazo Project
+export CURRENT_PROJECT=
+
+if [[ -f ~/.zprojectconfig ]]; then
+    source ~/.zprojectconfig
+fi
