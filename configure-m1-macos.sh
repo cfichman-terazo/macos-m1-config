@@ -127,6 +127,10 @@ function install_databases() {
   brew install --cask pgadmin4
 }
 
+function install_ides() {
+  brew install --cask intellij-idea visual-studio-code sublime-text
+}
+
 function install_cli_utils() {
   brew install wget curl rsync lz4
   brew install tmux watch htop netcat nmap
@@ -194,12 +198,15 @@ function main(){
   if [ $run_first_time_setup = "y" ]; then
     first_time_setup
   fi
+  if [ $run_update_brew = "y" ]; then
+    brewup
+  fi
   if [ $run_full_install = "y" ]; then
     install_homebrew_packages
     install_gcloud
-  fi
-  if [ $run_update_brew = "y" ]; then
-    brewup
+    if [ $run_optional_install = "y" ]; then
+      install_ides
+    fi
   fi
 }
 
