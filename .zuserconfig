@@ -5,6 +5,7 @@
 
 # User info
 export PROFILE=
+export PROJECT_NAME=terazo
 
 # Github account setup
 export GIT_PROFILE=
@@ -17,13 +18,9 @@ export USER_PYTHON_VERSION=3.10.5
 
 # Twilio Profile Information for Terazo partner account
 # You must have created a twilio profile for this to work!
-export TWILIO_PROFILE=
+export TWILIO_PROFILE=${PROJECT_NAME}-dev
 export TWILIO_TERAZO_SID=
 export TWILIO_TERAZO_KEY=
 
 # Current Terazo Project
 export CURRENT_PROJECT=
-
-if [[ -f ~/.zprojectconfig ]]; then
-    source ~/.zprojectconfig
-fi

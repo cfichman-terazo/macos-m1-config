@@ -16,16 +16,14 @@ function install_jenv() {
   brew install jenv
   jenv enable-plugin export
   install_java${JAVA_MAJOR_VERSION}
-  jenv add "$(${PATH_TO_JVM_HOME})"
-  jenv local ${JAVA_MAJOR_VERSION}.0
-  exec $SHELL -l
 }
 
 function install_java11() {
   # jenv only manages environment but does not install the JDK
   brew install --cask java11
   sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
-  export PATH_TO_JVM_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home
+  export PATH_TO_JDK_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home
+  jenv add "$(${PATH_TO_JDK_HOME})"
 }
 
 # Install aws-cli and tools
@@ -45,9 +43,9 @@ function install_gcloud() {
   local orig_dir=$(pwd)
   mkdir -p ${HOME}/third-party && cd ${HOME}/third-party
   gcloud_download=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-392.0.0-darwin-arm.tar.gz
-  wget -qO- $gcloud_download | tar xvz -C ${HOME}/third-party
+  wget -qO- ${gcloud_download} | tar xvz -C ${HOME}/third-party
   ./google-cloud-sdk/install.sh -q --path-update false --install-python false
-  cd $orig_dir
+  cd ${orig_dir}
 }
 
 ## Install and configure python
@@ -66,7 +64,17 @@ function install_c_deps() {
 function install_twilio() {
   brew tap twilio/brew && brew install twilio
   twilio autocomplete zsh
-  twilio login ${TWILIO_TERAZO_SID} --profile=${TWILIO_PROFILE} --auth-token=${TWILIO_TERAZO_KEY}
+}
+
+function setup_twilio_profile() {
+  export TWILIO_PROFILE=${1}
+  export TWILIO_SID=${2}
+  export TWILIO_KEY=${3}
+  twilio login ${TWILIO_SID} --profile=${TWILIO_PROFILE} --auth-token=${TWILIO_KEY}
+  twilio profiles:use ${TWILIO_PROFILE}
+}
+
+function switch_twilio_profile() {
   twilio profiles:use ${TWILIO_PROFILE}
 }
 
@@ -78,13 +86,25 @@ function install_languages() {
   install_jenv
 }
 
-function install_frameworks() {
-  install_nvm
+function install_docker() {
   brew install --cask docker
   brew install docker-squash
+}
+
+function install_podman() {
   brew install podman
+}
+
+function install_kubernetes() {
   brew install kubernetes-cli minikube kubectx
+}
+
+function install_all_frameworks() {
+  install_nvm
   install_twilio
+  install_docker
+  install_podman
+  install_kubernetes
   if [ run_cloud_install == 'y' ]; then
     install_aws
     install_gcloud
@@ -97,8 +117,4 @@ function install_frameworks() {
 function install_databases() {
   brew install postgresql
   brew install --cask pgadmin4
-}
-
-function install_ides() {
-  brew install --cask intellij-idea visual-studio-code sublime-text
 }

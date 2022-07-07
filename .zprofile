@@ -5,6 +5,11 @@
 
 source ~/.zuserconfig
 
+export CURRENT_PROJECT_CONFIG=${HOME}/.z${CURRENT_PROJECT}
+if [[ -f ${CURRENT_PROJECT_CONFIG} ]]; then
+    source ${CURRENT_PROJECT_CONFIG}
+fi
+
 # Config check
 if [[ -z ${PROFILE} || -z ${GIT_PROFILE} || -z ${GIT_EMAIL} || -z ${GIT_KEYNAME} ]]; then
   echo 'Essential variables in zprofile are not set. Open your .zprofile to update them.'

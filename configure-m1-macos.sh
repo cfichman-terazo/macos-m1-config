@@ -3,6 +3,18 @@
 # Author: Chris Fichman
 # Email: chris.fichman@terazo.com
 
+## Copies zprofile from this folder and installs in home directory
+function setup_zprofile() {
+  ## Install and source .zprofile
+  cp .zprofile ${HOME}
+  cp .zshrc ${HOME}
+  cp .zuserconfig ${HOME}
+  cp .zutils* ${HOME}
+  vim ${HOME}/.zuserconfig
+
+  source ${HOME}/.zprofile
+}
+
 run_first_time_setup="n"
 run_software_update="n"
 run_install_system_tools="n"
@@ -27,6 +39,7 @@ function main(){
     software_update
   fi
   if [ $run_first_time_setup = "y" ]; then
+    setup_zprofile
     first_time_setup
   fi
   if [ $run_install_system_tools = "y" ]; then
@@ -41,5 +54,4 @@ function main(){
 }
 
 source ./.zutils-system
-source ./.zutils-tools
 main

@@ -4,7 +4,6 @@
 # Contact: chris.fichman@terazo.com
 
 function first_time_setup () {
-  setup_zprofile
   softwareupdate --install-rosetta
   sudo bash -c "xcode-select --install; xcodebuild -license accept"
 }
@@ -12,18 +11,6 @@ function first_time_setup () {
 # Run MacOS software update
 function software_update () {
   sudo bash -c "softwareupdate -i -a"
-}
-
-## Copies zprofile from this folder and installs in home directory
-function setup_zprofile() {
-  ## Install and source .zprofile
-  cp .zprofile ${HOME}
-  cp .zshrc ${HOME}
-  cp .zuserconfig ${HOME}
-  cp .zutils ${HOME}
-  vim ${HOME}/.zuserconfig
-
-  source ${HOME}/.zprofile
 }
 
 ## Install homebrew
