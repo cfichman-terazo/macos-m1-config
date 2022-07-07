@@ -184,6 +184,8 @@ function run_prompts(){
   read run_software_update
   echo "Full install? (y/n):"
   read run_full_install
+  echo "Optional tools install? (y/n):"
+  read run_optional_install
   echo "Install cloud sdks? (y/n):"
   read run_cloud_install
   echo "Update brew and packages? (y/n):"
