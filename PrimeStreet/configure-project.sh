@@ -3,23 +3,14 @@
 # Author: Chris Fichman
 # Email: chris.fichman@terazo.com
 
-source ../.zutils-tools
-source ./.zprimestreet
-# Copies zprimestreet file to home and then sources the profile.
-function primestreet_first_time_setup () {
-  export CURRENT_PROJECT=primestreet
-  cp .zprimestreet ${HOME}
-}
-
 run_primestreet_first_time_setup="n"
-run_primestreet_install_infra="n"
-run_primestreet_install_optional="n"
+run_primestreet_install="n"
 
 function run_primestreet_prompts(){
   echo "Primestreet first time setup? (y/n):"
   read run_primestreet_first_time_setup
   echo "Install Primestreet project infrastructure? (y/n):"
-  read run_primestreet_install_infra
+  read run_primestreet_install
 }
 
 function primestreet_main(){
@@ -32,4 +23,5 @@ function primestreet_main(){
   fi
 }
 
+source ${HOME}/.zprimestreet
 primestreet_main
