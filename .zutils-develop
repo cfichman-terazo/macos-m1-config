@@ -60,6 +60,10 @@ function install_c_deps() {
   brew install gcc make
 }
 
+function install_go(){
+  brew install go
+}
+
 function install_twilio() {
   brew tap twilio/brew && brew install twilio
   twilio autocomplete zsh
@@ -81,7 +85,7 @@ function switch_twilio_profile() {
 function install_languages() {
   install_pyenv
   install_c_deps
-  brew install go
+  install_go
   install_jenv
 }
 

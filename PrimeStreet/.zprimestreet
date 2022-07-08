@@ -1,5 +1,5 @@
 source ~/.zprimestreet-config
-source ~/.zutils-tools
+source ~/.zutils-develop
 
 function primestreet_install_java() {
   install_jenv  
@@ -9,6 +9,8 @@ function primestreet_install_java() {
 
 function primestreet_install_languages() {
   primestreet_install_java
+  install_go
+  install_pyenv
 }
 
 function primestreet_install_tools() {
@@ -39,4 +41,6 @@ function primestreet_install(){
 function primestreet_configure() {
   switch_twilio_profile
   exec $SHELL -l
+  # NOTE: After sourcing, you can run compaudit to ensure no permissions conflicts are present
+  compaudit -D
 }
