@@ -1,5 +1,7 @@
 #! /bin/zsh
-# Adds some nice shortcuts and functions to the zsh shell.
+# Adds some nice shortcuts and functions to the zsh shell. 
+# Do not add anything to this file that you don't want to be overwritten!
+# Modify .zuserconfig to add special functionalty.
 # Author: Chris Fichman
 # Email: chris.fichman@terazo.com
 
@@ -12,7 +14,7 @@ fi
 
 # Config check
 if [[ -z ${PROFILE} || -z ${GIT_PROFILE} || -z ${GIT_EMAIL} || -z ${GIT_KEYNAME} ]]; then
-  echo 'Essential variables in zprofile are not set. Open your .zprofile to update them.'
+  echo 'Essential variables in ~/.zuserconfig are not set. Open ~/.zuserconfig to update them.'
 fi
 
 # Development variables
@@ -28,27 +30,18 @@ source ~/.zshrc
 # Functions for LS
 # Show files in reverse time ordered list using LScolos
 function lsl() {
-  ls -GFHltr $2
+  ls -GFHltr $@
 }
 # Show all files in reverse time ordered list using LScolors
 function lsa() {
-  ls -GFHaltr $2
+  ls -GFHaltr $@
 }
 # Show only hidden files in reverse time ordered list using LScolors
 function lsh() {
-  ls -GFhltrd .*?
+  lsa --color=always $@ | egrep "([ \.[\d\dm]\.\w| \.\w)"
 }
 
 # Adds funciton to pipe diff to vim
 function git_diff() {
     git diff --no-ext-diff -w "$@" | vim -R -
-}
-
-# Updates brew, updates brew libraries, cleans up unused/depricated, checks brew health
-function brewup() {
-  brew update;
-  brew upgrade;
-  brew upgrade --cask;
-  brew cleanup;
-  brew doctor;
 }

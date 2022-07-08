@@ -3,13 +3,14 @@
 # Author: Chris Fichman
 # Contact: chris.fichman@terazo.com
 
-function first_time_setup () {
+function system_first_time_setup () {
   softwareupdate --install-rosetta
   sudo bash -c "xcode-select --install; xcodebuild -license accept"
 }
 
 # Run MacOS software update
 function software_update () {
+  system_first_time_setup
   sudo bash -c "softwareupdate -i -a"
 }
 
