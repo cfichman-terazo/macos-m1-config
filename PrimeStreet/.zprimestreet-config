@@ -1,6 +1,5 @@
 #! /bin/zsh
-# This file contains configurations and setup functions
-#  that are relevant development on the PrimeStreet Project
+# This file contains configurations and that are relevant to development on the PrimeStreet Project
 # Author: Chris fichman
 # Email: chris.fichman@terazo.com
 export PROJECT_NAME=primestreet

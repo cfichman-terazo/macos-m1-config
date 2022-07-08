@@ -1,3 +1,8 @@
+#!/bin/zsh/
+# Functions for setting up dev environment for the PrimeStreet project
+# Author: Chris Fichman
+# Email: chris.fichman@terazo.com
+
 source ~/.zprimestreet-config
 source ~/.zutils-develop
 
