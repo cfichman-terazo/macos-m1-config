@@ -34,9 +34,9 @@ function lsl() {
 }
 # Show all files in reverse time ordered list using LScolors
 function lsa() {
-  ls -GFHaltr $@
+  lsl -a $@
 }
-# Show only hidden files in reverse time ordered list using LScolors
+# Show only hidden files, folders and links in reverse time ordered list using LScolors
 function lsh() {
   lsa --color=always $@ | egrep "([ \.[\d\dm]\.\w| \.\w)"
 }
