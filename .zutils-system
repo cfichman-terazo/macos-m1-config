@@ -37,7 +37,7 @@ function install_system_tools() {
 function git_ssh_keygen() {
   if [ ! -f ${GIT_SSH} ]; then
     ssh-keygen -t ed25519 -f "${GIT_SSH}" -C "${USER_EMAIL}"
-    cat << EOF > ${HOME}/.ssh/config
+    cat << EOF >> ${HOME}/.ssh/config
 Host *
   AddKeysToAgent yes
   UseKeychain yes
