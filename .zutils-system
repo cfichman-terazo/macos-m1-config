@@ -34,22 +34,22 @@ function install_system_tools() {
 
 ## Create ssh-key and add to keychain
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-function git_ssh_keygen() {
-  if [ ! -f ${GIT_SSH} ]; then
-    ssh-keygen -t ed25519 -f "${GIT_SSH}" -C "${USER_EMAIL}"
+function ssh_keygen() {
+  if [ ! -f ${SSH_FILE} ]; then
+    ssh-keygen -t ed25519 -f "${SSH_FILE}" -C "${USER_EMAIL}"
   else
     echo "ssh file already exists, skipping generation."
   fi
   ## Add key to hostsfile
   cat << EOF >> ${HOME}/.ssh/config
-Host ${GIT_HOST}
+Host ${SSH_HOSTS}
   AddKeysToAgent yes
   UseKeychain yes
-  IdentityFile ${GIT_SSH}
+  IdentityFile ${SSH_FILE}
 EOF
   ## Turn on ssh agent and add key to keychain
   eval "$(ssh-agent -s)"
-  ssh-add --apple-use-keychain ${GIT_SSH}
+  ssh-add --apple-use-keychain ${SSH_FILE}
 }
 
 function brewup() {

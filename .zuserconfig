@@ -6,13 +6,13 @@
 # User info
 export PROFILE=
 export PROJECT_NAME=terazo
+export USER_EMAIL=
 
 # Github account setup
 export GIT_PROFILE=
-export GIT_EMAIL=
-export GIT_KEYNAME=
-export GIT_SSH=~/.ssh/${GIT_KEYNAME}
-export GIT_HOST="*"
+export SSH_KEYNAME=
+export SSH_FILE=~/.ssh/${GIT_KEYNAME}
+export SSH_HOSTS="*"
 
 # Python Preference
 export USER_PYTHON_VERSION=3.10.5
