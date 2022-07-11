@@ -11,7 +11,7 @@ export USER_EMAIL=
 # Github account setup
 export GIT_PROFILE=
 export SSH_KEYNAME=
-export SSH_FILE=~/.ssh/${GIT_KEYNAME}
+export SSH_FILE=~/.ssh/${SSH_KEYNAME}
 export SSH_HOSTS="*"
 
 # Python Preference

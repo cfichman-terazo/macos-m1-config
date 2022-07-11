@@ -15,5 +15,5 @@ export TWILIO_PRIMESTREET_KEY=
 
 # Primestreet github account setup you can use same ssh key or a new one.
 export SSH_KEYNAME=
-export SSH_FILE=~/.ssh/${GIT_KEYNAME}
+export SSH_FILE=~/.ssh/${SSH_KEYNAME}
 export SSH_HOSTS="*PrimeStreet*"
