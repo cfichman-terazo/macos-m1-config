@@ -12,6 +12,7 @@ export GIT_PROFILE=
 export GIT_EMAIL=
 export GIT_KEYNAME=
 export GIT_SSH=~/.ssh/${GIT_KEYNAME}
+export GIT_HOST="*"
 
 # Python Preference
 export USER_PYTHON_VERSION=3.10.5

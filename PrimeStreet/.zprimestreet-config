@@ -12,3 +12,8 @@ export PROJECT_JAVA_MAJOR_VERSION=11
 export TWILIO_PROFILE=${PROJECT_NAME}-dev
 export TWILIO_PRIMESTREET_SID=
 export TWILIO_PRIMESTREET_KEY=
+
+# Primestreet github account setup you can use same ssh key or a new one.
+export GIT_KEYNAME=
+export GIT_SSH=~/.ssh/${GIT_KEYNAME}
+export GIT_HOST="*git*PrimeStreet*"

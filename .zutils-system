@@ -37,15 +37,16 @@ function install_system_tools() {
 function git_ssh_keygen() {
   if [ ! -f ${GIT_SSH} ]; then
     ssh-keygen -t ed25519 -f "${GIT_SSH}" -C "${USER_EMAIL}"
-    cat << EOF >> ${HOME}/.ssh/config
-Host *
+  else
+    echo "ssh file already exists, skipping generation."
+  fi
+  ## Add key to hostsfile
+  cat << EOF >> ${HOME}/.ssh/config
+Host ${GIT_HOST}
   AddKeysToAgent yes
   UseKeychain yes
   IdentityFile ${GIT_SSH}
 EOF
-  else
-    echo "ssh file already exists, skipping generation."
-  fi
   ## Turn on ssh agent and add key to keychain
   eval "$(ssh-agent -s)"
   ssh-add --apple-use-keychain ${GIT_SSH}
