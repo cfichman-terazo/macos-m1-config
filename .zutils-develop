@@ -17,6 +17,10 @@ function install_jenv() {
   jenv enable-plugin export
 }
 
+function switch_jenv(){
+  jenv local ${PROJECT_JAVA_MAJOR_VERSION}.${PROJECT_JAVA_MINOR_VERSION}
+}
+
 function install_java11() {
   # jenv only manages environment but does not install the JDK
   brew install java11
@@ -120,4 +124,5 @@ function install_all_frameworks() {
 function install_databases() {
   brew install postgresql
   brew install --cask pgadmin4
+  brew install liquibase
 }

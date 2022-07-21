@@ -120,6 +120,7 @@ export NVM_DIR="${HOME}/.nvm"
 # Setup jenv path
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+switch_jenv
 
 # Setup pyenv path
 export PYENV_ROOT="${HOME}/.pyenv"

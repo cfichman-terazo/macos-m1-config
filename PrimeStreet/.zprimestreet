@@ -9,7 +9,7 @@ source ~/.zutils-develop
 function primestreet_install_java() {
   install_jenv  
   install_java${PROJECT_JAVA_MAJOR_VERSION}
-  jenv local ${PROJECT_JAVA_MAJOR_VERSION}.0
+  switch_jenv ${PROJECT_JAVA_MAJOR_VERSION}.${PROJECT_JAVA_MINOR_VERSION}
 }
 
 function primestreet_install_languages() {
@@ -19,19 +19,17 @@ function primestreet_install_languages() {
 }
 
 function primestreet_install_tools() {
-  brew install --cask intellij-idea 
+  brew install --cask intellij-idea datagrip
 }
 
+function primestreet_install_services() {
+    install_docker
+    install_kubernetes
+    brew install kafka
+}
 function primestreet_install_frameworks() {
-  install_docker
-  install_kubernetes
+  primestreet_install_services
   install_aws
-  install_twilio
-  setup_twilio_profile ${TWILIO_PROFILE} ${TWILIO_PRIMESTREET_SID} ${TWILIO_PRIMESTREET_KEY}
-}
-
-function primestreet_install_databases() {
-  brew install postgresql
 }
 
 # Install primestreet development dependencies
@@ -39,13 +37,4 @@ function primestreet_install(){
   primestreet_install_languages
   primestreet_install_tools
   primestreet_install_frameworks
-  primestreet_install_databases
-}
-
-## Configure various libraries for primestreet development
-function primestreet_configure() {
-  switch_twilio_profile
-  exec $SHELL -l
-  # NOTE: After sourcing, you can run compaudit to ensure no permissions conflicts are present
-  compaudit -D
 }

@@ -7,6 +7,8 @@ export PROJECT_NAME=primestreet
 # Java Preverence
 export PROJECT_JAVA_MAJOR_VERSION=11
 
+export PROJECT_JAVA_MINOR_VERSION=0
+
 # Twilio Profile Information for Terazo partner account
 # You must have created a twilio profile for this to work!
 export TWILIO_PROFILE=${PROJECT_NAME}-dev
@@ -17,3 +19,10 @@ export TWILIO_PRIMESTREET_KEY=
 export SSH_KEYNAME=
 export SSH_FILE=~/.ssh/${SSH_KEYNAME}
 export SSH_CONFIG='See this file: https://docs.google.com/document/d/1KAQOkrTTzXIyxE-p8hZBPNv7qfj80rllAvbaAx1doqk/edit'
+
+# Primestreet enviro vars
+ORG_GRADLE_PROJECT_interviewDbHost='localhost'
+ORG_GRADLE_PROJECT_interviewDbPort=5432
+ORG_GRADLE_PROJECT_interviewDbName=interview
+ORG_GRADLE_PROJECT_interviewDbUsername=
+ORG_GRADLE_PROJECT_interviewDbPassword=
